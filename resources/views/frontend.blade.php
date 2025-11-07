@@ -3,648 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nama Perusahaan Akuntansi Anda - Solusi Keuangan Terpercaya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Konsultasi Keuangan - Solusi Finansial </title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
-        /* Variabel Warna */
         :root {
-            --primary-color: #2C3E50; /* Dark Blue */
-            --accent-color: #3498DB;  /* Bright Blue */
-            --light-bg: #F8F9FA;     /* Off-white */
-            --dark-text: #333333;
-            --light-text: #FFFFFF;
-            --gray-text: #7F8C8D;
-            --danger-color: #E74C3C; /* Red for Logout */
+            --primary-color: #2ecc71;   /* Hijau Krusty Krab (cerah & fresh) */
+            --accent-color: #27ae60;    /* Hijau tua elegan */
+            --light-bg: #e9f7ef;        /* Latar lembut */
+            --dark-text: #064420;
+            --light-text: #ffffff;
         }
 
-        /* Base Styles */
         body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #d4f7d4, #a8e6a3, #bdf0bd);
             color: var(--dark-text);
-            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* ANIMASI EMOTICON MENGAMBANG */
+        .floating-emojis {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .floating-emojis span {
+            position: absolute;
+            display: block;
+            font-size: 2rem;
+            animation: float 10s linear infinite;
+            opacity: 0.7;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0.3; }
+        }
+        .floating-emojis span:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
+        .floating-emojis span:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; }
+        .floating-emojis span:nth-child(3) { left: 40%; animation-duration: 10s; animation-delay: 4s; }
+        .floating-emojis span:nth-child(4) { left: 60%; animation-duration: 13s; animation-delay: 6s; }
+        .floating-emojis span:nth-child(5) { left: 75%; animation-duration: 11s; animation-delay: 3s; }
+        .floating-emojis span:nth-child(6) { left: 90%; animation-duration: 14s; animation-delay: 5s; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* HEADER / NAVBAR */
+        .main-header {
+            background: var(--light-text);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 25px;
             margin: 0;
             padding: 0;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            color: var(--primary-color);
-            margin-bottom: 0.8em;
-        }
-
-        h1 { font-size: 2.8em; }
-        h2 { font-size: 2.2em; }
-        h3 { font-size: 1.8em; }
-
-        p {
-            margin-bottom: 1em;
-        }
-
-        a {
+        .nav-links li { position: relative; }
+        .nav-links a {
             color: var(--accent-color);
+            font-weight: 500;
             text-decoration: none;
-            transition: color 0.3s ease;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover {
+            background: var(--primary-color);
+            color: var(--light-text);
         }
 
-        a:hover {
-            color: var(--primary-color);
+        /* Mobile */
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.8em;
+            color: var(--accent-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        @media(max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: var(--light-text);
+                padding: 20px;
+                border-top: 1px solid rgba(0,0,0,0.05);
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-toggle { display: block; }
         }
 
         /* Buttons */
         .btn {
-            display: inline-block;
             padding: 12px 25px;
-            border-radius: 5px;
-            font-weight: bold;
-            text-align: center;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            cursor: pointer;
+            border-radius: 25px;
             border: none;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
         }
+        .btn-primary { background: var(--accent-color); color: var(--light-text); }
+        .btn-primary:hover { background: var(--primary-color); }
+        .btn-secondary { background: var(--primary-color); color: var(--light-text); }
+        .btn-secondary:hover { background: var(--accent-color); }
 
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: var(--light-text);
-        }
-
-        .btn-primary:hover {
-            background-color: #2980B9; /* Darker accent */
-        }
-
-        .btn-secondary {
-            background-color: var(--primary-color);
-            color: var(--light-text);
-        }
-
-        .btn-secondary:hover {
-            background-color: #212F3D; /* Darker primary */
-        }
-
-        .btn-outline-primary {
-            background-color: transparent;
-            color: var(--accent-color);
-            border: 2px solid var(--accent-color);
-        }
-
-        .btn-outline-primary:hover {
-            background-color: var(--accent-color);
-            color: var(--light-text);
-        }
-
-        .btn-large {
-            padding: 15px 30px;
-            font-size: 1.1em;
-        }
-
-        .btn-danger {
-            background-color: var(--danger-color);
-            color: var(--light-text);
-        }
-
-        .btn-danger:hover {
-            background-color: #C0392B; /* Darker red */
-        }
-
-        /* Header & Navbar */
-        .main-header {
-            background-color: var(--light-text);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            padding: 15px 0;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar-brand img {
-            height: 40px; /* Adjust as needed */
-        }
-
-        .nav-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-            position: relative;
-        }
-
-        .nav-links a {
-            color: var(--primary-color);
-            font-weight: 500;
-            padding: 10px 0;
-            display: block;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background-color: var(--light-text);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            min-width: 180px;
-            z-index: 10;
-            border-radius: 5px;
-            overflow: hidden;
-            padding: 10px 0;
-        }
-
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            color: var(--dark-text);
-            padding: 10px 20px;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--light-bg);
-            color: var(--accent-color);
-        }
-
-        /* Hero Section */
         .hero-section {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1920x800?text=Akuntansi+Perusahaan') no-repeat center center/cover; /* Ganti dengan gambar yang relevan */
+            position: relative;
+            background: url("{{ asset('img/keuangan.jpg') }}") no-repeat center center/cover;
             color: var(--light-text);
             text-align: center;
             padding: 100px 20px;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
         }
 
-        .hero-section h1 {
-            color: var(--light-text);
-            font-size: 3.5em;
-            margin-bottom: 0.5em;
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(39, 174, 96, 0.6); /* hijau transparan overlay */
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
         }
-
-        .hero-section p {
-            font-size: 1.3em;
-            margin-bottom: 2em;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+        .hero-section .container {
+            position: relative;
+            z-index: 1;
         }
+        .hero-section h1 { font-size: 3em; margin-bottom: 0.5em; }
+        .hero-section p { font-size: 1.2em; margin-bottom: 2em; }
 
-        .hero-buttons .btn {
-            margin: 0 10px;
-        }
-
-        /* Services Overview */
-        .services-overview {
-            padding: 80px 0;
-            background-color: var(--light-bg);
-            text-align: center;
-        }
-
-        .services-overview h2 {
-            margin-bottom: 40px;
-        }
-
+        /* Services */
+        .services-overview { padding: 80px 0; text-align: center; }
         .service-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
             gap: 30px;
-            margin-bottom: 50px;
         }
-
         .service-card {
-            background-color: var(--light-text);
+            background: var(--light-text);
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: transform 0.3s ease;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
         }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .service-card .icon {
-            font-size: 3em;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
+        .service-card:hover { transform: translateY(-8px); }
+        .service-card .icon { font-size: 3em; color: var(--accent-color); margin-bottom: 20px; }
 
         /* Why Choose Us */
-        .why-choose-us {
-            padding: 80px 0;
-            background-color: var(--light-text);
-            text-align: center;
-        }
-
-        .why-choose-us h2 {
-            margin-bottom: 40px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
+        .why-choose-us { padding: 80px 0; background: #d9f7df; text-align: center; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 30px; }
         .feature-item {
             padding: 30px;
-            border: 1px solid #E0E0E0;
-            border-radius: 8px;
-            text-align: center;
+            border-radius: 20px;
+            background: var(--light-text);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
+        .feature-item i { font-size: 2.5em; color: var(--accent-color); margin-bottom: 15px; }
 
-        .feature-item i {
-            font-size: 2.5em;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-        }
-
-        .feature-item h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        /* Call to Action Section */
+        /* Call to Action */
         .call-to-action {
-            background-color: var(--primary-color);
+            background: var(--accent-color);
             color: var(--light-text);
-            padding: 60px 20px;
             text-align: center;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
+            padding: 60px 20px;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
         }
-
-        .call-to-action h2 {
-            color: var(--light-text);
-            margin-bottom: 20px;
-        }
-
-        .call-to-action p {
-            font-size: 1.1em;
-            margin-bottom: 30px;
-        }
-
 
         /* Footer */
         .main-footer {
-            background-color: var(--primary-color);
+            background: var(--accent-color);
             color: var(--light-text);
             padding: 60px 0 20px;
-            font-size: 0.9em;
         }
-
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
             gap: 30px;
-            margin-bottom: 40px;
         }
+        .footer-col h4 { margin-bottom: 20px; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { color: var(--light-text); opacity: 0.8; }
+        .footer-col a:hover { color: var(--primary-color); opacity: 1; }
+        .social-icons a { color: var(--light-text); font-size: 1.4em; margin-right: 12px; }
+        .footer-bottom { text-align: center; margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
 
-        .footer-col h4 {
-            color: var(--light-text);
-            margin-bottom: 20px;
-            font-size: 1.2em;
-        }
-
-        .footer-col ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-col ul li a {
-            color: var(--light-text);
-            opacity: 0.8;
-        }
-
-        .footer-col ul li a:hover {
-            opacity: 1;
-            color: var(--accent-color);
-        }
-
-        .footer-col p {
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-
-        .footer-col i {
-            margin-right: 8px;
-            color: var(--accent-color);
-        }
-
-        .social-icons a {
-            color: var(--light-text);
-            font-size: 1.5em;
-            margin-right: 15px;
-            opacity: 0.8;
-        }
-
-        .social-icons a:hover {
-            color: var(--accent-color);
-            opacity: 1;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            margin-top: 20px;
-            opacity: 0.7;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links {
-                flex-direction: column;
-                width: 100%;
-                margin-top: 15px;
-                /* Ini akan dikontrol oleh JS untuk menu mobile, defaultnya disembunyikan */
-                display: none;
-            }
-
-            .nav-links.active { /* Kelas untuk menampilkan menu mobile */
-                display: flex;
-            }
-
-            .nav-links li {
-                margin: 0;
-                width: 100%;
-                text-align: center;
-            }
-
-            .nav-links li a {
-                padding: 15px 0;
-                border-top: 1px solid #eee;
-            }
-
-            .dropdown-menu {
-                position: static;
-                box-shadow: none;
-                width: 100%;
-                padding: 0;
-            }
-
-            .dropdown-menu a {
-                padding-left: 40px; /* Indent dropdown items */
-            }
-
-            .hero-section h1 {
-                font-size: 2.5em;
-            }
-
-            .hero-section p {
-                font-size: 1em;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .hero-buttons .btn {
-                margin: 10px 0;
-                width: 80%; /* Adjust width for mobile buttons */
-                max-width: 300px;
-            }
-
-            .service-cards, .features-grid, .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .mobile-menu-toggle {
-                display: block; /* Tampilkan tombol toggle di mobile */
-            }
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none; /* Sembunyikan secara default di desktop */
-            background: none;
-            border: none;
-            font-size: 1.8em;
-            color: var(--primary-color);
-            cursor: pointer;
-            padding: 5px 10px;
+        /* SEMBUNYIKAN MENU BERANDA, TENTANG, ARTIKEL, HUBUNGI */
+        .nav-links li:nth-child(1),
+        .nav-links li:nth-child(2),
+        .nav-links li:nth-child(3),
+        .nav-links li:nth-child(4) {
+            display: none !important;
         }
     </style>
 </head>
 <body>
+    <!-- Emoticon Uang Mengambang -->
+    <div class="floating-emojis">
+        <span>💰</span>
+        <span>💵</span>
+        <span>💎</span>
+        <span>💸</span>
+        <span>🪙</span>
+        <span>🏦</span>
+    </div>
+
     <header class="main-header">
-     <nav class="navbar">
-        <div class="container">
-            <!-- <a href="{{ url('/') }}" class="navbar-brand">
-                <img src="{{ asset('img/logo.png') }}" alt="Nama Perusahaan Logo">
-            </a> -->
-            <button class="mobile-menu-toggle" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+        <nav class="navbar">
+            <a href="{{ url('/') }}" class="navbar-brand">🪙𝐹𝑖𝓃𝒸𝒶𝓇𝑒</a>
+            <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
             <ul class="nav-links">
                 <li><a href="{{ url('/') }}">Beranda</a></li>
-                <li class="dropdown">
-                    <a href="#">Layanan <i class="fas fa-chevron-down"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="{{ url('/layanan/pajak') }}">Pajak</a>
-                        <a href="{{ url('/layanan/audit') }}">Audit</a>
-                        <a href="{{ url('/layanan/pembukuan') }}">Pembukuan</a>
-                        </div>
-                </li>
                 <li><a href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
                 <li><a href="{{ url('/blog') }}">Artikel</a></li>
                 <li><a href="{{ url('/kontak') }}">Hubungi Kami</a></li>
-
-                {{-- Bagian Autentikasi Laravel --}}
                 @guest
                     <li><a href="{{ route('login') }}">Login</a></li>
                     @if (Route::has('register'))
-                        <li><a href="{{ route('register') }}" >Register</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
                     @endif
                 @else
                     <li class="dropdown">
                         <a href="#">{{ Auth::user()->name }} <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-menu">
-                            <a href="{{ url('/dashboard') }}">Dashboard</a> {{-- Asumsi ada halaman dashboard --}}
-                            <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            class="btn-danger-link">
-                                Logout
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                            <a href="{{ url('/dashboard') }}">Dashboard</a>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">@csrf</form>
                         </div>
                     </li>
                 @endguest
-                {{-- Akhir Bagian Autentikasi --}}
-
             </ul>
-            {{-- Tombol CTA utama (non-auth) --}}
-            @guest
-                @endguest
-        </div>
-    </nav>
+        </nav>
     </header>
 
-    <main class="content-wrapper">
+    <main>
         <section class="hero-section">
             <div class="container">
-                <h1>Solusi Akuntansi Terpercaya untuk Masa Depan Keuangan Anda</h1>
-                <p>Membantu bisnis Anda tumbuh dengan layanan akuntansi, pajak, dan konsultasi profesional.</p>
-                <div class="hero-buttons">
-                    <a href="{{ url('/konsultasi') }}" class="btn btn-primary btn-large">Mulai Konsultasi Gratis</a>
-                    <a href="{{ url('/layanan') }}" class="btn btn-secondary btn-large">Lihat Layanan Kami</a>
-                </div>
+                <h1>Konsultasi Keuangan</h1>
+                <p>Atur keuanganmu dengan mudah, dan profesional bersama tim kami 💵</p>
+                <a href="{{ url('/konsultasi') }}" class="btn btn-primary" style="text-decoration: none;">Mulai Konsultasi Gratis</a>
             </div>
         </section>
 
         <section class="services-overview">
             <div class="container">
-                <h2>Layanan Unggulan Kami</h2>
+                <h2>Layanan Kami</h2>
                 <div class="service-cards">
                     <div class="service-card">
+                        <i class="fas fa-piggy-bank icon"></i>
+                        <h3>Tabungan & Anggaran</h3>
+                        <p>Buat anggaran keuangan yang rapi agar tujuan finansial tercapai.</p>
+                    </div>
+                    <div class="service-card">
                         <i class="fas fa-chart-line icon"></i>
+                        <h3>Investasi</h3>
+                        <p>Konsultasi portofolio investasi yang aman dan menguntungkan.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-hand-holding-usd icon"></i>
                         <h3>Konsultasi Pajak</h3>
-                        <p>Optimalkan kewajiban pajak Anda dengan panduan ahli kami.</p>
+                        <p>Optimalkan kewajiban pajak tanpa ribet.</p>
                     </div>
-                    <div class="service-card">
-                        <i class="fas fa-book icon"></i>
-                        <h3>Pembukuan & Laporan Keuangan</h3>
-                        <p>Catatan keuangan akurat untuk keputusan bisnis yang lebih baik.</p>
-                    </div>
-                    <div class="service-card">
-                        <i class="fas fa-magnifying-glass-dollar icon"></i>
-                        <h3>Audit Independen</h3>
-                        <p>Memastikan transparansi dan kepatuhan finansial perusahaan Anda.</p>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <a href="{{ url('/layanan') }}" class="btn btn-outline-primary">Pelajari Lebih Lanjut tentang Layanan Kami</a>
                 </div>
             </div>
         </section>
 
         <section class="why-choose-us">
             <div class="container">
-                <h2>Mengapa Memilih Kami?</h2>
+                <h2>Kenapa Pilih Kami?</h2>
                 <div class="features-grid">
                     <div class="feature-item">
-                        <i class="fas fa-award"></i>
-                        <h3>Pengalaman & Keahlian</h3>
-                        <p>Tim profesional dengan pengalaman bertahun-tahun di berbagai industri.</p>
+                        <i class="fas fa-heart"></i>
+                        <h3>Friendly</h3>
+                        <p>Suasana konsultasi yang fun tapi tetap profesional 💚</p>
                     </div>
                     <div class="feature-item">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Integritas & Kepercayaan</h3>
-                        <p>Menjaga kerahasiaan dan integritas data keuangan Anda adalah prioritas kami.</p>
+                        <i class="fas fa-user-shield"></i>
+                        <h3>Keamanan Data</h3>
+                        <p>Privasi dan kerahasiaanmu dijamin 100% 🔒</p>
                     </div>
                     <div class="feature-item">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Solusi Inovatif</h3>
-                        <p>Mengadopsi teknologi terbaru untuk layanan yang lebih efisien dan akurat.</p>
+                        <i class="fas fa-star"></i>
+                        <h3>Berpengalaman</h3>
+                        <p>Konsultan berlisensi dengan pengalaman panjang.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="call-to-action">
-            <div class="container">
-                <h2>Siap Mengelola Keuangan Anda dengan Lebih Baik?</h2>
-                <p>Hubungi kami hari ini untuk konsultasi gratis dan temukan bagaimana kami dapat membantu.</p>
-                <a href="{{ url('/kontak') }}" class="btn btn-primary btn-large">Hubungi Kami Sekarang</a>
-            </div>
+            <h2>Siap Mengatur Keuanganmu?</h2>
+            <p>Yuk mulai sekarang dan rasakan perbedaan 💸</p>
+            <a href="{{ url('/kontak') }}" class="btn btn-secondary" style="text-decoration: none;">Hubungi Kami</a>
         </section>
     </main>
 
     <footer class="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>Nama Perusahaan Akuntansi Anda</h4>
-                    <p>Solusi keuangan terpercaya untuk bisnis Anda.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Link Cepat</h4>
-                    <ul>
-                        <li><a href="{{ url('/') }}">Beranda</a></li>
-                        <li><a href="{{ url('/layanan') }}">Layanan</a></li>
-                        <li><a href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
-                        <li><a href="{{ url('/blog') }}">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Hubungi Kami</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Alamat Lengkap Anda</p>
-                    <p><i class="fas fa-phone"></i> +62 XXXX XXXX XXXX</p>
-                    <p><i class="fas fa-envelope"></i> info@perusahaananda.com</p>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>Konsultasi Keuangan</h4>
+                <p>Teman setia perjalanan finansialmu 💚</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} Universitas Hang Tuah Pekanbaru.</p>
+            <div class="footer-col">
+                <h4>Link Cepat</h4>
+                <ul>
+                    <li><a href="{{ url('/') }}" style="text-decoration: none;">Beranda</a></li>
+                    <li><a href="{{ url('/tentang-kami') }}" style="text-decoration: none;">Tentang Kami</a></li>
+                    <li><a href="{{ url('/kontak') }}" style="text-decoration: none;">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontak</h4>
+                <p><i class="fas fa-envelope"></i> info@fincare.com</p>
             </div>
         </div>
+        <div class="footer-bottom">&copy; {{ date('Y') }} Konsultasi Keuangan </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-
-            if (mobileMenuToggle && navLinks) {
-                mobileMenuToggle.addEventListener('click', function () {
-                    navLinks.classList.toggle('active');
-                });
-            }
-
-            // Untuk dropdown menu di desktop
-            const dropdowns = document.querySelectorAll('.dropdown');
-            dropdowns.forEach(dropdown => {
-                dropdown.addEventListener('mouseenter', () => {
-                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                    if (dropdownMenu) {
-                        dropdownMenu.style.display = 'block';
-                    }
-                });
-                dropdown.addEventListener('mouseleave', () => {
-                    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                    if (dropdownMenu) {
-                        dropdownMenu.style.display = 'none';
-                    }
-                });
-            });
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
         });
     </script>
 </body>
